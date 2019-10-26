@@ -77,17 +77,17 @@ T wMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num, uintptr
 
 	if (num == 0)
 	{
-		unsigned long OldProtection;
-		VirtualProtect((LPVOID)(adr), nval, PAGE_EXECUTE_READWRITE, &OldProtection);
+		unsigned long oProtection;
+		VirtualProtect((LPVOID)(adr), nval, PAGE_EXECUTE_READWRITE, &oProtection);
 		WriteProcessMemory(proc, LPVOID(adr), &nval, sizeof(T), NULL);
-		VirtualProtect((LPVOID)(adr), nval, OldProtection, NULL);
+		VirtualProtect((LPVOID)(adr), nval, oProtection, NULL);
 	}
 	else
 	{
-		unsigned long OldProtection;
-		VirtualProtect((LPVOID)(faddr), nval, PAGE_EXECUTE_READWRITE, &OldProtection);
+		unsigned long oProtection;
+		VirtualProtect((LPVOID)(faddr), nval, PAGE_EXECUTE_READWRITE, &oProtection);
 		WriteProcessMemory(proc, LPVOID(faddr), &nval, sizeof(T), NULL);
-		VirtualProtect((LPVOID)(faddr), nval, OldProtection, NULL);
+		VirtualProtect((LPVOID)(faddr), nval, oProtection, NULL);
 	}
 	return 0;
 }
