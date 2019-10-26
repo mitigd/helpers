@@ -28,11 +28,6 @@ T rMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num)
 	{
 		ReadProcessMemory(proc, LPCVOID(adr), &val, sizeof(T), NULL);
 	}
-	if (num == 1)
-	{
-		ReadProcessMemory(proc, LPCVOID(adr), &val, sizeof(T), NULL);
-		ReadProcessMemory(proc, LPCVOID(val + offsets[0]), &val, sizeof(T), NULL);
-	}
 	else
 	{
 		ReadProcessMemory(proc, LPCVOID(adr), &val, sizeof(T), NULL);
@@ -57,11 +52,6 @@ T wMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num, uintptr
 	if (num == 0)
 	{
 		ReadProcessMemory(proc, LPCVOID(adr), &val, sizeof(T), NULL);
-	}
-	if (num == 1)
-	{
-		ReadProcessMemory(proc, LPCVOID(adr), &val, sizeof(T), NULL);
-		ReadProcessMemory(proc, LPCVOID(val + offsets[0]), &val, sizeof(T), NULL);
 	}
 	else
 	{
