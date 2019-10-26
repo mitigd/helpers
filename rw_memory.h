@@ -8,6 +8,8 @@ uintptr_t offsets[] = { 0x00, 0x00, 0x00 };
 the last number is the number of offsets added above.
 rMemory<uintptr_t>(ac_proc, ac_ammo, offsets, 3);
 
+if you don't need any offsets just set 'offsets' to NULL.
+
 ***/
 
 #include <iostream>
@@ -22,6 +24,10 @@ T rMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num)
 
 	printf("number of offsets = %d\n", num);
 
+	if (num == 0)
+	{
+		ReadProcessMemory(proc, LPCVOID(adr), &val, sizeof(T), NULL);
+	}
 	if (num == 1)
 	{
 		ReadProcessMemory(proc, LPCVOID(adr), &val, sizeof(T), NULL);
@@ -48,6 +54,10 @@ T wMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num, uintptr
 
 	printf("number of offsets = %d\n", num);
 
+	if (num == 0)
+	{
+		ReadProcessMemory(proc, LPCVOID(adr), &val, sizeof(T), NULL);
+	}
 	if (num == 1)
 	{
 		ReadProcessMemory(proc, LPCVOID(adr), &val, sizeof(T), NULL);
@@ -65,12 +75,19 @@ T wMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num, uintptr
 		}
 	}
 
-	printf("Final address is %d\n", faddr);
-
-	unsigned long oProtection;
-	VirtualProtect((LPVOID)(faddr), nval, PAGE_EXECUTE_READWRITE, &oProtection);
-	WriteProcessMemory(proc, LPVOID(faddr), &nval, sizeof(T), NULL);
-	VirtualProtect((LPVOID)(faddr), nval, oProtection, NULL);
-
+	if (num == 0)
+	{
+		unsigned long OldProtection;
+		VirtualProtect((LPVOID)(adr), nval, PAGE_EXECUTE_READWRITE, &OldProtection);
+		WriteProcessMemory(proc, LPVOID(adr), &nval, sizeof(T), NULL);
+		VirtualProtect((LPVOID)(adr), nval, OldProtection, NULL);
+	}
+	else
+	{
+		unsigned long OldProtection;
+		VirtualProtect((LPVOID)(faddr), nval, PAGE_EXECUTE_READWRITE, &OldProtection);
+		WriteProcessMemory(proc, LPVOID(faddr), &nval, sizeof(T), NULL);
+		VirtualProtect((LPVOID)(faddr), nval, OldProtection, NULL);
+	}
 	return 0;
 }
