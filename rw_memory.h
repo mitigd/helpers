@@ -6,7 +6,7 @@ put your offsets here, however many you need.
 uintptr_t offsets[] = { 0x00, 0x00, 0x00 };
 
 the last number is the number of offsets added above.
-if you need to change a float, use <float>
+if you need to change to float, use <float>
 rMemory<uintptr_t>(ac_proc, ac_ammo, offsets, 3);
 
 if you don't need any offsets just set 'offsets' to NULL.
