@@ -21,9 +21,7 @@ T rMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num)
 {
 
 	T val;
-
-	printf("number of offsets = %d\n", num);
-
+	
 	if (num == 0)
 	{
 		ReadProcessMemory(proc, LPCVOID(adr), &val, sizeof(T), NULL);
@@ -47,8 +45,6 @@ T wMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num, uintptr
 	T baddr;
 	T faddr;
 
-	printf("number of offsets = %d\n", num);
-
 	if (num == 0)
 	{
 		ReadProcessMemory(proc, LPCVOID(adr), &val, sizeof(T), NULL);
@@ -56,7 +52,6 @@ T wMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num, uintptr
 	else
 	{
 		ReadProcessMemory(proc, LPCVOID(adr), &val, sizeof(T), NULL);
-		//printf("current mem value is %d\n", val);
 		for (int i = 0; i < num; i++)
 		{
 			baddr = val;
