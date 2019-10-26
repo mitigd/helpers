@@ -12,9 +12,7 @@ if you don't need any offsets just set 'offsets' to NULL.
 
 ***/
 
-#include <iostream>
 #include <Windows.h>
-#include <tlhelp32.h>
 
 template<typename T>
 T rMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num)
