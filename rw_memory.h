@@ -36,12 +36,12 @@ T rMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num)
 }
 
 template<typename T>
-T wMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num, uintptr_t nval)
+T wMemory(HANDLE proc, uintptr_t adr, uintptr_t *offsets, uintptr_t num, T nval)
 {
 
-	T val;
-	T baddr;
-	T faddr;
+	uintptr_t val;
+	uintptr_t baddr;
+	uintptr_t faddr;
 
 	if (num == 0)
 	{
